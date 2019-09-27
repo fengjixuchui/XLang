@@ -2,8 +2,8 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-#include "Parser.h"
-#include "VersionInfo.h"
+#include "../ParserApi.h"
+#include "../Application/VersionInfo.h"
 using namespace std;
 struct ParserLib {
 	string FileName;

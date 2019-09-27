@@ -4,7 +4,7 @@
 #pragma once
 
 #include <iostream>
-#include "Node.h"
-#include "ParserManager.h"
-#include "VersionInfo.h"
+#include "../Node/Node.h"
+#include "../Parser/ParserManager.h"
+#include "../Application/VersionInfo.h"
 // TODO: 在此处引用程序需要的其他标头。

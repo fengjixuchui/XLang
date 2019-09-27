@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include "../Parser/ParserManager.h"
 using namespace std;
 class NodeBase;
 
@@ -13,5 +14,5 @@ public:
 	NodeBase* Parent;
 	vector<NodeBase*> Children;
 	//mothods
-	virtual void Parse();
+	virtual void Parse(ParserManager p);
 };

@@ -7,6 +7,7 @@ using namespace std;
 int main(int argc,char **argv)
 {
 	cout << "XL Compiler " << XLVersion <<endl;
+	NodeBase* RootNode = new NodeBase();
 	ParserManager* GlobalParserManager = new ParserManager();
 	string outfile_name = "build.out";
 	for (size_t i = 1; i < argc; i++)
@@ -15,6 +16,9 @@ int main(int argc,char **argv)
 		if (arg.substr(0, 3) == "-p+") {
 			if (!GlobalParserManager->Load(arg.substr(3))) {
 				cerr << "Load Parser Module Failid: " << arg.substr(3)<<endl;
+			}
+			else {
+				cout << arg.substr(3) << "Load Success" << endl;
 			}
 			continue;
 		}
@@ -25,7 +29,15 @@ int main(int argc,char **argv)
 		if (string(argv[i]).substr(0, 2) == "-l") {
 			continue;
 		}
-		if (string(argv[i]).substr(0, 2) == "-c") {
+		if (string(argv[i]).substr(0, 3) == "-c+") {
+			cout << arg.substr(3) << "Parsing" << endl;
+			fstream* FStream = new fstream(arg.substr(3), ios::in | ios::out);
+			stringstream* SStream = new stringstream();
+			(*SStream) << FStream->rdbuf();
+			NodeBase* FileNode = new NodeBase();
+			FileNode->Stream = SStream;
+			FileNode->Parse();
+			RootNode->Children.push_back(FileNode);
 			continue;
 		}
 	}
