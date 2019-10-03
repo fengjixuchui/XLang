@@ -29,6 +29,6 @@ public:
     CrossLibrary(string FileName);
     ~CrossLibrary();
     void Close();
-    void *Symbol(string Name);
+    template <typename T> T Symbol(string Name);
     operator bool();
 };

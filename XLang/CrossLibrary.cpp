@@ -8,8 +8,8 @@ CrossLibrary::CrossLibrary(string FileName) {
 CrossLibrary::~CrossLibrary() {
     FreeLib(this->Module);
 }
-void* CrossLibrary::Symbol(string Name) {
-    return LibMothod GetSymbol(this->Module,Name);
+template <typename T> T CrossLibrary::Symbol(string Name) {
+    return (T)GetSymbol(this->Module,Name);
 }
 void CrossLibrary::Close() {
     FreeLib(this->Module);

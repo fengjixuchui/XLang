@@ -5,5 +5,5 @@ cmake_minimum_required (VERSION 3.8)
 
 # 将源代码添加到此项目的可执行文件。
 
-add_executable (XLang "VersionInfo.h" "XLang.cpp" "XLang.h" "Node.cpp" "Node.h" "NodeApi.h" "ParserManager.cpp" "ParserManager.h" CrossLibrary.h CrossLibrary.cpp)
+add_executable (XLang "XLang.cpp" "XLang.h" "Node.cpp" "Node.h" "NodeApi.h" CrossLibrary.h CrossLibrary.cpp PluginManager.cpp PluginManager.h AppSettings.h)
 # TODO: 如有需要，请添加测试并安装目标。

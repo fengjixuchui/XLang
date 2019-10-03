@@ -84,6 +84,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="G:/XLang/XLang/AppSettings.h">
+			<Option target="XLang"/>
+		</Unit>
 		<Unit filename="G:/XLang/XLang/CrossLibrary.cpp">
 			<Option target="XLang"/>
 		</Unit>
@@ -99,13 +102,10 @@
 		<Unit filename="G:/XLang/XLang/NodeApi.h">
 			<Option target="XLang"/>
 		</Unit>
-		<Unit filename="G:/XLang/XLang/ParserManager.cpp">
+		<Unit filename="G:/XLang/XLang/PluginManager.cpp">
 			<Option target="XLang"/>
 		</Unit>
-		<Unit filename="G:/XLang/XLang/ParserManager.h">
-			<Option target="XLang"/>
-		</Unit>
-		<Unit filename="G:/XLang/XLang/VersionInfo.h">
+		<Unit filename="G:/XLang/XLang/PluginManager.h">
 			<Option target="XLang"/>
 		</Unit>
 		<Unit filename="G:/XLang/XLang/XLang.cpp">

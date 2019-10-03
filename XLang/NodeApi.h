@@ -28,7 +28,11 @@ public:
     }
 };
 typedef void(*XParserAction)(vector<Node *>,stringstream *);
-typedef void(*XKeywordAction)(vector<Node *>);
+struct ParseInfo {
+    XParserAction nowParser;
+    vector<Node *> *NodeStack;
+};
+typedef void(*XKeywordAction)(ParseInfo *);
 struct PluginInfo
 {
 	string Name;

@@ -6,21 +6,20 @@ using namespace std;
 
 int main(int argc,char **argv)
 {
-	cout << "XL Compiler " << XL_Version <<endl;
-	Node* RootNode = new Node();
-	ParserManager* GlobalParserManager = new ParserManager();
-	GlobalParserManager->Load(CompilerBaseInit);
-	string outfile_name = "build.out";
+	cout << "XL Compiler " << ApplicationVersion <<endl;
+	Node *RootNode = new Node();
+	PluginManager pluginManager;
+	pluginManager.Load(CompilerBaseInit);
+	string outfile_name = "a.out";
 	for (size_t i = 1; i < argc; i++)
 	{
 		string arg = string(argv[i]);
 		if (arg.substr(0, 3) == "-p+") {
-			if (!GlobalParserManager->Load(arg.substr(3))) {
-				cerr << "Load Parser Module Failid: " << arg.substr(3)<<endl;
-			}
-			else {
-				cout << arg.substr(3) << "Load Success" << endl;
-			}
+		    if(!pluginManager.Load(arg.substr(3))){
+		        cerr<<"Load "<<arg.substr(3)<<" Error"<<endl;
+		    }else{
+                cout<<"Load "<<arg.substr(3)<<" Success"<<endl;
+		    }
 			continue;
 		}
 		if (arg.substr(0, 3) == "-o=") {
@@ -35,8 +34,10 @@ int main(int argc,char **argv)
 			fstream* FStream = new fstream(arg.substr(3), ios::in | ios::out);
 			stringstream* SStream = new stringstream();
 			(*SStream) << FStream->rdbuf();
+            FStream->close();
 			NodeBase* FileNode = new NodeBase();
 			FileNode->Stream = SStream;
+			FileNode->KeywordMap = &pluginManager.LoadedKeywords;
 			FileNode->Parse();
 			RootNode->Children.push_back(FileNode);
 			continue;
