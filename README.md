@@ -1,6 +1,6 @@
 # XLang
-![XLang](https://raw.githubusercontent.com/lwingteam/XLang/master/.logo.png)
-`Design By TNiK (TencentQQ:1771284750)`
+![XLang](https://raw.githubusercontent.com/lwingteam/XLang/master/.logo.png)     
+`Design By TNiK (TencentQQ:1771284750)`.     
 XLang是一个编译器，负责把.x文件编译为可执行文件。     
 代码格式：
 ```
