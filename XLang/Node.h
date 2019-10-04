@@ -3,35 +3,41 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
-#include "NodeApi.h"
+#include <unordered_map>
 using namespace std;
+class Node;
+class StackNode;
+typedef void(*XKeywordAction)(StackNode*,stringstream*);
 class NodeBase;
+class Node{
+public:
+    Node* Parent;
+    vector<Node*> Children;
+    virtual void Parse(unordered_map<string,XKeywordAction> m);
+    virtual string Build();
+};
+
+class StackNode {
+public:
+    Node *Pop();
+    void Push(Node *obj);
+    int Size();
+    Node *Top();
+private:
+    vector<Node *> Stack;
+};
 
 class NodeBase: public Node{
 public:
 	//args
 	stringstream* Stream;
-    unordered_map<string,XKeywordAction> *KeywordMap;
 	//mothods
-	virtual void Parse();
+	void Parse(unordered_map<string,XKeywordAction> m) override;
 };
 class NodeClass: public Node{
 public:
     //args
 
     //mothods
-    virtual void Parse();
-};
-
-XPluginInitMothod CompilerBaseInit = [] (string Version) -> PluginInfo* {
-    PluginInfo* r = new PluginInfo();
-    r->Name = "CompilerBase";
-    r->Version = "1.0";
-    r->Keywords["class"] = [](ParseInfo *s){
-        s->NodeStack->push_back(new NodeClass());
-    };
-    r->Keywords["}"] = [](ParseInfo *s){
-        s->NodeStack->erase(s->NodeStack->begin()+s->NodeStack->size());
-    };
-    return r;
+    void Parse(unordered_map<string,XKeywordAction> m) override;
 };
