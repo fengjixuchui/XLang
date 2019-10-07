@@ -3,6 +3,7 @@
 
 #include "XLang.h"
 using namespace std;
+vector<string> splitString(string i,string a);
 void InitKeyword(unordered_map<string,XKeywordAction> *m);
 int main(int argc,char **argv)
 {
@@ -10,8 +11,6 @@ int main(int argc,char **argv)
 	Node *RootNode = new Node();
     unordered_map<string,XKeywordAction> KeywordMap;
     InitKeyword(&KeywordMap);
-
-
 	string outfile_name = "a.out";
 	for (size_t i = 1; i < argc; i++)
 	{
@@ -41,10 +40,43 @@ int main(int argc,char **argv)
 }
 void InitKeyword(unordered_map<string,XKeywordAction> *m){
     (*m)["class"] = [](StackNode* Stack,stringstream* Stream){
-        (*Stack).Push(new NodeClass());
         //Parse Class
+        string name;
+        string extend;
+        char c;
+        bool extendPart = false;
+        do{
+            (!extendPart ? name : extend).push_back(c);
+            c = 0;
+            (*Stream) >> c;
+            if(c==':'){
+                extendPart=true;
+            }
+        }while(c != '{');
+        //push Node
+        NodeClass *cn = new NodeClass();
+        cn->name = name;
+        cn->extend = splitString(extend,",");
+        Node *n = cn;
+        (*Stack).Push(n);
     };
     (*m)["}"] = [](StackNode* Stack,stringstream* Stream){
         (*Stack).Pop();
     };
+}
+vector<string> splitString(string i,string a){
+    if(i.find(a) == -1 || i.size() < a.size()){
+        return vector<string>({ i });
+    }
+    vector<string> v;
+    size_t o = 0;
+    while (true){
+        size_t t = i.find(a, o);
+        v.push_back(i.substr(o,t - o));
+        o = t + a.size();
+        if(o == a.size() - 1){
+            break;
+        }
+    }
+    return v;
 }

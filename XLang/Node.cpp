@@ -31,6 +31,7 @@ void NodeBase::Parse(unordered_map<string,XKeywordAction> m) {
     }while(!this->Stream->eof());
 }
 
-void NodeClass::Parse(unordered_map<string, XKeywordAction> m) {
 
-}
+string NodeClass::Build() {
+    return "class XLClass_"+this->name+"{\n"+Node::Build()+"\n}";
+};

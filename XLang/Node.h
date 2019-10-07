@@ -37,7 +37,8 @@ public:
 class NodeClass: public Node{
 public:
     //args
-
+    string name;
+    vector<string> extend;
     //mothods
-    void Parse(unordered_map<string,XKeywordAction> m) override;
+    string Build() override;
 };
