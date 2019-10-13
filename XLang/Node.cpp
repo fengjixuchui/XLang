@@ -11,7 +11,6 @@ string Node::Build() {
     return Buffer;
 }
 void NodeBase::Parse(unordered_map<string,XKeywordAction> m) {
-    bool stringing = false;
     StackNode Stack; Stack.Push(this);
     string Buffer;
     do{
@@ -33,5 +32,26 @@ void NodeBase::Parse(unordered_map<string,XKeywordAction> m) {
 
 
 string NodeClass::Build() {
-    return "class XLClass_"+this->name+"{\n"+Node::Build()+"\n}";
+    return "class XLClass_"+this->name+"{\n"+Node::Build()+"\n}\n";
 };
+
+string NodeCode::Build() {
+    return this->code;
+}
+
+NodeCode::NodeCode(string _code) {
+    this->code = _code;
+}
+
+string NodePublic::Build() {
+    return "public:\n"+Node::Build();
+}
+
+NodeVar::NodeVar(string _name,string _init) {
+    this->name = _name;
+    this->init = _init;
+}
+
+string NodeVar::Build() {
+    return "auto *"+ this->name + " = autonew("+(this->init == "","nullptr",this->init)+");\n";
+}

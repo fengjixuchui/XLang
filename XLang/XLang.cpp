@@ -9,6 +9,11 @@ int main(int argc,char **argv)
 {
 	cout << "XL Compiler " << ApplicationVersion <<endl;
 	Node *RootNode = new Node();
+    RootNode->Children.push_back(new NodeCode("#include <iostream>\n\
+    using namespace std;\n\
+    class XObject{\n\
+    public:\n\
+    };\n"));
     unordered_map<string,XKeywordAction> KeywordMap;
     InitKeyword(&KeywordMap);
 	string outfile_name = "a.out";
@@ -39,20 +44,51 @@ int main(int argc,char **argv)
 	return 0;
 }
 void InitKeyword(unordered_map<string,XKeywordAction> *m){
+    (*m)["public"] = [](StackNode* Stack,stringstream* Stream){
+        NodePublic *pn = new NodePublic();
+        Node *n = pn;
+        (*Stack).Push(n);
+    };
+    (*m)["let"] = [](StackNode* Stack,stringstream* Stream){
+        string name;
+        string init;
+        char c;
+        bool initPart = false;
+        while(true){
+            c = 0;
+            (*Stream) >> c;
+            if(c=='='){
+                initPart=true;
+                continue;
+            }
+            if(c==';'){
+                break;
+            }
+            (!initPart ? name : init).push_back(c);
+        }
+        //push Node
+        NodeVar *cn = new NodeVar(name,init);
+        Node *n = cn;
+        (*Stack).Push(n);
+    };
     (*m)["class"] = [](StackNode* Stack,stringstream* Stream){
         //Parse Class
         string name;
         string extend;
         char c;
         bool extendPart = false;
-        do{
-            (!extendPart ? name : extend).push_back(c);
+        while(true){
             c = 0;
             (*Stream) >> c;
             if(c==':'){
                 extendPart=true;
+                continue;
             }
-        }while(c != '{');
+            if(c=='{'){
+                break;
+            }
+            (!extendPart ? name : extend).push_back(c);
+        }
         //push Node
         NodeClass *cn = new NodeClass();
         cn->name = name;

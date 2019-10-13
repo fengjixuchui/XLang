@@ -9,6 +9,9 @@ class Node;
 class StackNode;
 typedef void(*XKeywordAction)(StackNode*,stringstream*);
 class NodeBase;
+class NodeCode;
+class NodePublic;
+class NodeVar;
 class Node{
 public:
     Node* Parent;
@@ -40,5 +43,24 @@ public:
     string name;
     vector<string> extend;
     //mothods
+    string Build() override;
+};
+class NodeCode: public Node{
+public:
+    //args
+    string code;
+    //mothods
+    explicit NodeCode(string _code);
+    string Build() override;
+};
+class NodePublic: public Node{
+public:
+    string Build() override;
+};
+class NodeVar: public Node{
+public:
+    explicit NodeVar(string _name,string _init);
+    string name = "";
+    string init = "";
     string Build() override;
 };
