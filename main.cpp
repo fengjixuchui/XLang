@@ -16,7 +16,7 @@ int main(int argc,char **argv) {
     Node *Root = new Node;
     for (int i = 1; i < argc; i++) {
         string arg(argv[i]);
-        if(arg.substr(0,3) == "-f="){
+        if(arg.substr(0,3) == "-f+"){
             fstream file(arg.substr(3));
             stringstream *sfile = new stringstream();
             (*sfile) << file.rdbuf();
@@ -41,12 +41,12 @@ void identsInit(){
     identsMap["null"] = TToken::Tnull;
 }
 void symbolsInit(){
-    identsMap["+"] = TToken::Tadd;
-    identsMap["-"] = TToken::Tsub;
-    identsMap["*"] = TToken::Tmul;
-    identsMap["/"] = TToken::Tdiv;
-    identsMap["&&"] = TToken::Tand;
-    identsMap["||"] = TToken::Tor;
-    identsMap["and"] = TToken::Tand;
-    identsMap["or"] = TToken::Tor;
+    mathsMap["+"] = TToken::Tadd;
+    mathsMap["-"] = TToken::Tsub;
+    mathsMap["*"] = TToken::Tmul;
+    mathsMap["/"] = TToken::Tdiv;
+    mathsMap["&&"] = TToken::Tand;
+    mathsMap["||"] = TToken::Tor;
+    mathsMap["and"] = TToken::Tand;
+    mathsMap["or"] = TToken::Tor;
 }

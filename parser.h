@@ -9,7 +9,12 @@
 #include "node.h"
 #include "tokens.h"
 using namespace std;
-
-static unordered_map<string,TToken> identsMap;
-
+struct MapseT{
+    size_t length;
+    string ident;
+    TToken token;
+};
+extern unordered_map<string,TToken> identsMap;
+extern unordered_map<string,TToken> mathsMap;
 Node *Parse(stringstream *v);
+bool Mapse(unordered_map<string,TToken> map,string buffer,MapseT &t);
