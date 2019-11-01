@@ -1,7 +1,4 @@
-﻿# CMakeList.txt: 顶层 CMake 项目文件，在此处执行全局配置
-# 并包含子项目。
-#
-cmake_minimum_required (VERSION 3.8)
-
-project ("XLang")
-add_subdirectory ("XLang")
+cmake_minimum_required(VERSION 3.15)
+project(XLang)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(XLang main.cpp parser.cpp parser.h node.cpp node.h tokens.h)
