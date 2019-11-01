@@ -10,7 +10,7 @@
 #include "tokens.h"
 using namespace std;
 struct MapseT{
-    size_t length;
+    uint64_t length;
     string ident;
     TToken token;
 };

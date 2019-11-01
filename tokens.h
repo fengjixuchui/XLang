@@ -20,6 +20,7 @@ enum TToken{
     Tpublic,
     Tprivate,
     Tstatic,
+    Tend,
     //maths
     Tadd,
     Tsub,

@@ -10,7 +10,7 @@ Node *Parse(stringstream *v) {
     Node *fNode = new Node;
     Node *sNode = fNode;
     string buffer;
-    size_t line;size_t pos;
+    int64_t line = 0,pos = 0;
     char charbuffer;
     while((*v).get(charbuffer)){
         buffer.push_back(charbuffer);
@@ -23,7 +23,7 @@ Node *Parse(stringstream *v) {
             NodeIdent *nNode = new NodeIdent;
             //位置
             (*nNode).Pos.line = line;
-            (*nNode).Pos.pos = pos - token.length;
+            (*nNode).Pos.pos = (pos - token.length);
             //参数
             (*nNode).Type = token.token;
             (*nNode).Parent = fNode;
@@ -37,7 +37,7 @@ Node *Parse(stringstream *v) {
 
 bool Mapse(unordered_map<string,TToken> map,string buffer,MapseT &t){
     for (auto item : map) {
-        int pos = buffer.length()-item.first.length();
+        int64_t pos = buffer.length()-item.first.length();
         pos = pos < 0 ? 0 : pos;
         if(buffer.substr(pos) == item.first){
             //发现在本表中存在

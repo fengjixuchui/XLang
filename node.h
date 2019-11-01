@@ -7,8 +7,8 @@
 #include "tokens.h"
 using namespace std;
 struct CodePos{
-    int line;
-    int pos;
+    int64_t line = 0;
+    int64_t pos = 0;
 };
 class Node {
 public:

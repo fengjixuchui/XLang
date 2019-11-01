@@ -26,6 +26,9 @@ int main(int argc,char **argv) {
             (*Root).Children.push_back(Parse(sfile));
         }
     }
+    fstream outfile("tempfile.cpp");
+    outfile << (*Root).genCode() << endl;
+    outfile.close();
     return 0;
 }
 void identsInit(){
@@ -39,6 +42,8 @@ void identsInit(){
     identsMap["static"] = TToken::Tstatic;
     identsMap["extern"] = TToken::Textern;
     identsMap["null"] = TToken::Tnull;
+    identsMap["end"] = TToken::Tend;
+    identsMap["}"] = TToken::Tend;
 }
 void symbolsInit(){
     mathsMap["+"] = TToken::Tadd;
